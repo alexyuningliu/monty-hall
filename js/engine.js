@@ -86,7 +86,7 @@ function shuffle(o){ //v1.0
 
 function runSimulator(strategy) {
 	var limit = 1;
-	for (var i = 0; i <= limit; i++) {
+	for (var i = 0; i < limit; i++) {
 		// Creating more permanent objects
 
 		var player = new Player(strategy);
