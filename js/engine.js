@@ -28,21 +28,23 @@ function Outcome() {
 Player.prototype.firstPick = function(stage) {
 
 	var pick1Index = Math.floor(Math.random() * stage.doors.length);
-	this.pick1 = stage.doors[pick1Index];
-	this.pick1.currentlySelected = true;
+	stage.pick1Index = pick1Index;
+	stage.doors[pick1Index].currentlySelected = true;
 }
 
 Player.prototype.secondPick = function(stage) {
-	if (this.strategy === "always-switch") {
+	if (this.strategy == "always-switch") {
 		for (var i = 0; i < stage.doors.length; i++) {
-			if ((stage.doors[i].itemName !== "prize") && (stage.doors[i].revealed === false)) {
-				this.pick2 = stage.doors[i];
-				this.pick2.currentlySelected = true;
+			if ((stage.doors[i].currentlySelected !== true) && (stage.doors[i].revealed === false)) {
+				var pick2Index = i;
+				stage.pick2Index = pick2Index;
+				stage.doors[pick2Index].currentlySelected = true;
+				stage.doors[stage.pick1Index].currentlySelected = false;
 				break;
 			}
 		}
 	} else {
-		this.pick2 = this.pick1;
+		stage.pick2Index = stage.pick1Index;
 	}
 }
 
@@ -85,12 +87,13 @@ function shuffle(o){ //v1.0
 // }
 
 function runSimulator(strategy) {
-	var limit = 1;
-	for (var i = 0; i < limit; i++) {
-		// Creating more permanent objects
+	// Creating more permanent objects
 
-		var player = new Player(strategy);
-		var outcome = new Outcome();	
+	var player = new Player(strategy);
+	var outcome = new Outcome();	
+
+	var limit = 1000;
+	for (var i = 0; i < limit; i++) {
 				
 		// Setup
 
@@ -113,11 +116,11 @@ function runSimulator(strategy) {
 
 		stage.determineOutcome(outcome);
 
-		console.log("There were this many wins: " + outcome.wins);
-		console.log("There were this many losses: "+ outcome.losses);
-
 		// Teardown
 	}
+
+	console.log("There were this many wins: " + outcome.wins);
+	console.log("There were this many losses: "+ outcome.losses);
 }
 
 // Listening for events on DOM
