@@ -120,9 +120,11 @@ function runSimulator(strategy) {
 
 	// Drawing using D3
 
-	  d3.select(".chart")
+	  var selection = d3.select(".chart")
 	  .selectAll("div")
 	    .data([outcome.wins, outcome.losses])
+	    .style("width", function(d) { return d + "px"; })
+	    .text(function(d) { return d; })
 	  .enter().append("div")
 	    .style("width", function(d) { return d + "px"; })
 	    .text(function(d) { return d; });
