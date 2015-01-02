@@ -116,8 +116,16 @@ function runSimulator(strategy) {
 
 		stage.determineOutcome(outcome);
 
-		// Teardown
 	}
+
+	// Drawing using D3
+
+	  d3.select(".chart")
+	  .selectAll("div")
+	    .data([outcome.wins, outcome.losses])
+	  .enter().append("div")
+	    .style("width", function(d) { return d + "px"; })
+	    .text(function(d) { return d; });
 
 	console.log("There were this many wins: " + outcome.wins);
 	console.log("There were this many losses: "+ outcome.losses);
