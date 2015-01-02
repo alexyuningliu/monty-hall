@@ -32,23 +32,15 @@
   </head>
   <body>
     <h1>Play the Monty Hall Game!</h1>
-    <p>Pick your strategy:</p>
+    <p>Pick your strategy to run the simulation!</p>
     <button id="never-switch" type="button" class="btn btn-primary">Never Switch</button>
     <button id="always-switch" type="button" class="btn btn-primary">Always Switch</button>
+    <p>Here's a chart to display the data:</p>
     <div class="chart"></div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.2.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/engine.js"></script>
-
-    <script>
-      d3.select(".chart")
-      .selectAll("div")
-        .data([outcome.wins, outcome.losses])
-      .enter().append("div")
-        .style("width", function(d) { return d + "px"; })
-        .text(function(d) { return d; });
-    </script>
   </body>
 </html>
